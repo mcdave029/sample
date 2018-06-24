@@ -16,18 +16,17 @@ class SampleController < ApplicationController
     attributes = ["id", "Names", "LRN", "Student Type", "Track & Strand",  "Billing Statement", "Voucher Amout", "Grade Level"]
 
     CSV.generate(headers: true) do |csv|
+      csv << ["Population: #{data.original_data.last[0]}"]
+      csv << ["Sample Size: #{data.size}"]
+      csv << ["Interval: #{data.interval}"]
+      csv << ["RNS: #{data.rns}"]
+      csv << []
+
       csv << attributes
 
       data.sample.each do |d|
         csv << d
       end
-
-      csv << []
-
-      csv << ["Population: #{data.original_data.last[0]}"]
-      csv << ["Sample Size: #{data.size}"]
-      csv << ["Interval: #{data.interval}"]
-      csv << ["RNS: #{data.rns}"]
     end
   end
 end
