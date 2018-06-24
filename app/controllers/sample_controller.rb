@@ -13,9 +13,10 @@ class SampleController < ApplicationController
   private
 
   def csv_of(data:)
-    attributes = ["id", "Names", "LRN", "Student Type", "Track & Strand",  "Billing Statement", "Voucher Amout", "Grade Level"]
+    attributes = [nil, "No.", "Names", "LRN", "Student Type", "Track & Strand",  "Billing Statement", "Voucher Amout", "Grade Level"]
 
     CSV.generate(headers: true) do |csv|
+      csv << ["School: #{data.filename}"]
       csv << ["Population: #{data.original_data.last[0]}"]
       csv << ["Sample Size: #{data.size}"]
       csv << ["Interval: #{data.interval}"]
@@ -24,8 +25,8 @@ class SampleController < ApplicationController
 
       csv << attributes
 
-      data.sample.each do |d|
-        csv << d
+      data.sample.each_with_index do |d,i|
+        csv << d.unshift(i + 1)
       end
     end
   end

@@ -1,9 +1,10 @@
 # Sampling method for surveys
 class SampleHandler
-  attr_accessor :original_data, :size, :limit, :sample, :rns, :interval
+  attr_accessor :filename, :original_data, :size, :limit, :sample, :rns, :interval
 
   def initialize(data:, size:, limit:)
     r_data = Roo::Spreadsheet.open(data.path).sheet(0)
+    @filename = File.basename(data.original_filename, ".*")
     @original_data = r_data.each_with_index.map { |d, i| d if i > 0 }.compact
     @data = r_data.each_with_index.map { |d, i| d if i > 0 }.compact
     @size = size
