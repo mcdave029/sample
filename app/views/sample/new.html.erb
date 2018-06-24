@@ -1,0 +1,6 @@
+<%= form_tag sample_index_path, multipart: true do %>
+  <%= text_field_tag :size, nil, placeholder: "Size e.g. 30" %>
+  <%= text_field_tag :limit, nil, placeholder: "Limit e.g. 50" %>
+  <%= file_field_tag :data %>
+  <%= submit_tag %>
+<% end %>
